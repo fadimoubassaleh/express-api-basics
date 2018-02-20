@@ -54,7 +54,7 @@
 ## Step 6 - SEARCH
 
 - With express, make it so when the url `/movies/read/by-date` is requested, you answer with `{status:200, data:<MOVIES>}`, where `<MOVIES>` is the list of movies *ORDERED BY DATE*
-- With express, make it so when the url `/movies/read/by-rating` is requested, you answer with `{status:200, data:<MOVIES>}`, where `<MOVIES>` is the list of movies *ORDERED BY RATING*
+- With express, make it so when the url `/movies/read/by-rating` is requested, you answer with `{status:200, data:<MOVIES>}`, where `<MOVIES>` is the list of movies *ORDERED BY RATING*, where the highest rating is *at the top*.
 - With express, make it so when the url `/movies/read/by-title` is requested, you answer with `{status:200, data:<MOVIES>}`, where `<MOVIES>` is the list of movies *ORDERED BY TITLE*
 
 ## Step 7 - READ ONE
