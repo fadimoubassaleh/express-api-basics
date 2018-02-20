@@ -58,20 +58,18 @@ app.get('/movies/get/by-title', ( req, res ) => {
   res.send({status:200, data:moviesSorted})
 })
 
-app.get('/movies/get', ( req, res ) => {
-  res.send({status:200, data:movies})
-})
-
-app.get('/movies/add', ( req, res ) => {
-  res.send('ok')
-})
-
 app.get('/movies/edit', ( req, res ) => {
   res.send('ok')
 })
 
-app.get('/movies/delete', ( req, res ) => {
-  res.send('ok')
+app.get('/movies/delete/:id', ( req, res ) => {
+  const id = req.params.id
+  if(movies[id]){
+    movies.splice(id,1)
+    res.send({status:200, data:movies})
+  }else{
+    res.status(404).send({status:404, error:true, message:'the movie '+id+' does not exist'})
+  }
 })
 
 app.get('/test', (req,res) => res.send({status:200, message:"ok"}))
