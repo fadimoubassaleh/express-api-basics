@@ -12,10 +12,11 @@ const movies = [
 app.get('/movies/add', ( req, res ) => {
   const title = req.query.title
   const year = parseInt(req.query.year)
-  const rating = parseFloat(req.query.rating)
+  const _rating = parseFloat(req.query.rating)
   if(!title || !year || req.query.year.length!==4 || isNaN(year)){
     return res.status(403).send({status:403, error:true, message:'you cannot create a movie without providing a title and a year'})
   }
+  const rating = (!_rating || isNaN(_rating) ? 4 : _rating )
   const new_movie = {title, year, rating}
   movies.push(new_movie)
   res.send({status:200, data:movies})
