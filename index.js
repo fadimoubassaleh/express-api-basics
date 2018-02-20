@@ -10,7 +10,12 @@ const movies = [
 ]
 
 app.get('/movies/add', ( req, res ) => {
-  res.send('ok')
+  const title = req.query.title
+  const year = req.query.year
+  const rating = req.query.rating
+  const new_movie = {title, year, rating}
+  movies.push(new_movie)
+  res.send({status:200, data:movies})
 })
 
 app.get('/movies/get/id/:id', ( req, res ) => {
