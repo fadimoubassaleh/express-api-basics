@@ -13,6 +13,14 @@ app.get('/movies/add', ( req, res ) => {
     res.send('ok')
 })
 
+app.get('/movies/get/by-date', ( req, res ) => {
+    const sortByDate = (a, b) => {
+        return a.year - b.year
+    }
+    const moviesSorted = movies.sort(sortByDate)
+    res.send({status:200, data:moviesSorted})
+})
+
 app.get('/movies/get', ( req, res ) => {
     res.send({status:200, data:movies})
 })
