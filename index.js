@@ -18,6 +18,15 @@ app.get('/hello/:thing?', ( req, res ) => {
     res.send({status:200, message})
 })
 
+app.get('/search', (req, res)=>{
+    const query = req.query.s
+    if(query){
+        res.send({status:200, data:query})
+    }else{
+        res.status(500).send({status:500, error:true, message:"You have to provide a search"})
+    }
+})
+
 app.get('/',(req,res)=>{
     res.send('batata')
 })
