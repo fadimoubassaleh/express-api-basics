@@ -12,6 +12,12 @@ app.get('/time', (req, res) => {
   res.send({status:200, message})
 })
 
+app.get('/hello/:thing?', ( req, res ) => {
+    const thing = req.params.thing
+    const message = 'hello, '+thing
+    res.send({status:200, message})
+})
+
 app.get('/',(req,res)=>{
     res.send('batata')
 })
