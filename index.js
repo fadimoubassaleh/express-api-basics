@@ -29,6 +29,16 @@ app.get('/movies/get/by-rating', ( req, res ) => {
     res.send({status:200, data:moviesSorted})
 })
 
+app.get('/movies/get/by-title', ( req, res ) => {
+  const sortByTitle = (a, b) => {
+    const x = a.title.toLowerCase()
+    const y = b.title.toLowerCase()
+    return x<y ? -1 : x>y ? 1 : 0;
+  }
+  const moviesSorted = movies.sort(sortByTitle)
+  res.send({status:200, data:moviesSorted})
+})
+
 app.get('/movies/get', ( req, res ) => {
     res.send({status:200, data:movies})
 })
