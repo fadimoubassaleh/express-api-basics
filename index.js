@@ -58,8 +58,24 @@ app.get('/movies/get/by-title', ( req, res ) => {
   res.send({status:200, data:moviesSorted})
 })
 
-app.get('/movies/edit', ( req, res ) => {
-  res.send('ok')
+app.get('/movies/edit/:id', ( req, res ) => {
+  const id = req.params.id
+  if(movies[id]){
+    const _title = req.query.title
+    const _year = parseInt(req.query.year)
+    const _rating = parseFloat(req.query.rating)
+    if(!_year && !_title && !_rating){
+      return res.status(403).send({status:403, error:true, message:'you need to change at least one property'})
+    }
+    const title = (! _title ) ? movies[id].title : _title
+    const rating = (!_rating || isNaN(_rating) ? movies[id].rating : _rating )
+    const year = (!_year || isNaN(_year) ? movies[id].year : _year )
+    const new_movie = {title, rating, year}
+    movies[id] = new_movie
+    res.send({status:200, data:movies})
+  }else{
+    res.status(404).send({status:404, error:true, message:'the movie '+id+' does not exist'})
+  }
 })
 
 app.get('/movies/delete/:id', ( req, res ) => {
