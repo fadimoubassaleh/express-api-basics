@@ -1,3 +1,12 @@
+# Simple Node + Express JSON Server
+
+We will create a json server that allows users to add, modify, remove, and see movies.
+
+Later, we will link this with a React front-end
+
+- Commit after *EACH* step at least, if not multiple times per step 
+- *name* your commits clearly
+
 ## Step 1 - Setting up the project
 
 - create a new directory
@@ -91,3 +100,8 @@
 ## Step 12: Optional 2: Data Persistence
 
 - Save the data in a mongoDB database. See [this tutorial](https://medium.freecodecamp.org/building-a-simple-node-js-api-in-under-30-minutes-a07ea9e390d2) for help 
+
+## Step 12: Optional 3: Authentification
+
+- create a CRUD app but for users (same as the one for movies, but with a `users` array that takes objects with usernames and passwords)
+- only allow an authenticated used to modify or delete movies
