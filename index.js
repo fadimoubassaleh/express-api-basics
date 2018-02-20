@@ -13,6 +13,16 @@ app.get('/movies/add', ( req, res ) => {
   res.send('ok')
 })
 
+app.get('/movies/get/id/:id', ( req, res ) => {
+  const id = req.params.id
+  if(movies[id]){
+    const movie = movies[id]
+    res.send({status:200, data:movie})
+  }else{
+    res.status(404).send({status:404, error:true, message:'the movie '+id+' does not exist'})
+  }
+})
+
 app.get('/movies/get/by-date', ( req, res ) => {
   const sortByDate = (a, b) => {
     return a.year - b.year
