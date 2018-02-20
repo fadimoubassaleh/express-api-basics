@@ -14,7 +14,7 @@ app.get('/movies/add', ( req, res ) => {
 })
 
 app.get('/movies/get', ( req, res ) => {
-    res.send('ok')
+    res.send({status:200, data:movies})
 })
 
 app.get('/movies/add', ( req, res ) => {
