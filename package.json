@@ -4,11 +4,15 @@
   "description": "- create a new directory - go in the directory and run `npm init` to create a new project - answer whatever you like to the questions - install express: `npm install --save express` - open the project in your IDE or editor - create a file \"index.js\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
   }
 }
