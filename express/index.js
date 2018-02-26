@@ -2,7 +2,12 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-
+const movies = [
+    { title: 'Jaws', year: 1975, rating: 8 },
+    { title: 'Avatar', year: 2009, rating: 7.8 },
+    { title: 'Brazil', year: 1985, rating: 8 },
+    { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
+]
 app.get((""), (req, res)=>{
     res.send('Batata')
 })
@@ -47,7 +52,26 @@ app.get(('/search'), (req, res)=>{
         res.data = req.query.s
         res.end()
     }
-    
+})
+function listOfMovies(){
+var list = `Title: ` + movies[0].title + `<br />`
+for (i = 1;i < movies.length;i++){
+    list += `Title: ` + movies[i].title + `<br />`
+}return list
+}
+app.get(('/movies/:test?'), (req, res)=>{
+    if (!req.params.test){
+        res.status(200)
+        console.log(movies)
+        res.send(listOfMovies())
+    }else if (req.params.test == 'create')
+        res.send(req.params.test)
+    else if(req.params.test == 'read')
+        res.send(req.params.test)
+    else if(req.params.test == 'update')
+        res.send(req.params.test)
+    else if(req.params.test == 'delete')
+        res.send(req.params.test)
 })
 // app.get((''), (req, res)=>{})
 app.listen(port,(err)=>{
