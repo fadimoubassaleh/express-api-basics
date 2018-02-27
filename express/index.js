@@ -2,12 +2,48 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+//          ****
+
 const movies = [
     { title: 'Jaws', year: 1975, rating: 8 },
     { title: 'Avatar', year: 2009, rating: 7.8 },
     { title: 'Brazil', year: 1985, rating: 8 },
     { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ]
+
+//          ****
+
+function byYear(test){
+    var newArray = test.sort(function (a, b) {
+                    return a.year - b.year;
+                    });
+    return newArray
+}
+function byRate(test){
+    var newArray = test.sort(function (a, b) {
+                    return a.rating - b.rating;
+                    });
+    return newArray
+}
+function byName(test){
+    var newArray = test.sort(function(a, b) {
+        var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+      
+        // names must be equal
+        return 0;
+    });
+    return newArray
+}
+
+//          ****
+
 app.get((""), (req, res)=>{
     res.send('Batata')
 })
@@ -53,21 +89,31 @@ app.get(('/search'), (req, res)=>{
         res.end()
     }
 })
-function listOfMovies(){
-var list = `Title: ` + movies[0].title + `<br />`
-for (i = 1;i < movies.length;i++){
-    list += `Title: ` + movies[i].title + `<br />`
+function listOfMovies(arrayList){
+var list = `Title: ` + arrayList[0].title + ` Year: `+ arrayList[0].year + ` Rating: ` + arrayList[0].rating + `<br />`
+for (i = 1;i < arrayList.length;i++){
+    list += `Title: ` + arrayList[i].title + ` Year: `+ arrayList[i].year + ` Rating: ` + arrayList[i].rating+ `<br />`
 }return list
 }
-app.get(('/movies/:test?'), (req, res)=>{
+app.get(('/movies/:test?/:test2?'), (req, res)=>{
     if (!req.params.test){
         res.status(200)
         console.log(movies)
-        res.send(listOfMovies())
+        res.send(listOfMovies(movies))
     }else if (req.params.test == 'create')
         res.send(req.params.test)
-    else if(req.params.test == 'read')
-        res.send(req.params.test)
+    else if(req.params.test == 'read'){
+        if(req.params.test2 == 'by-date'){
+            var newArray = byYear(movies)
+            res.send(listOfMovies(newArray))
+        }else if(req.params.test2 == 'by-rating'){
+            var newArray = byRate(movies)
+            res.send(listOfMovies(newArray))
+        }else if(req.params.test2 == 'by-title'){
+            var newArray = byName(movies)
+            res.send(listOfMovies(newArray))
+        }
+    }
     else if(req.params.test == 'update')
         res.send(req.params.test)
     else if(req.params.test == 'delete')
