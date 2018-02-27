@@ -138,6 +138,18 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
             var result = {title: req.query.title, year: req.query.year, rating: req.query.rating}
             movies.push(result)
             res.send(listOfMovies(movies))}
+    }else if (req.params.test == 'delete'){
+        if (!req.params.test2){
+            res.send('Please enter the id of movie you want to delete')
+        }else if (!isNaN(req.params.test2) && req.params.test2 < movies.length){
+            var result = parseInt(req.params.test2) - 1
+            movies.splice(result,1)
+            res.send(listOfMovies(movies))
+        }else{
+            res.status(404)
+            res.err = true
+            res.send(`the movie ${req.params.test2} does not exist`)
+        }
     }
 
 
