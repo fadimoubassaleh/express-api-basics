@@ -95,13 +95,15 @@ for (i = 1;i < arrayList.length;i++){
     list += `Title: ` + arrayList[i].title + ` Year: `+ arrayList[i].year + ` Rating: ` + arrayList[i].rating+ `<br />`
 }return list
 }
-app.get(('/movies/:test?/:test2?'), (req, res)=>{
+app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
     if (!req.params.test){
         res.status(200)
         console.log(movies)
         res.send(listOfMovies(movies))
     }else if (req.params.test == 'create')
         res.send(req.params.test)
+
+
     else if(req.params.test == 'read'){
         if(req.params.test2 == 'by-date'){
             var newArray = byYear(movies)
@@ -112,8 +114,20 @@ app.get(('/movies/:test?/:test2?'), (req, res)=>{
         }else if(req.params.test2 == 'by-title'){
             var newArray = byName(movies)
             res.send(listOfMovies(newArray))
-        }
-    }
+        }else if(req.params.test2 == 'id'){
+            if (!req.params.test3){
+                res.send('Please enter your ID')
+            }else if(req.params.test3 <= movies.length){
+                res.status(200)
+                res.send(movies[req.params.test3 - 1])
+            }else{
+                res.status(404).err
+                // res.err(true)
+                res.send(`the movie ${req.params.test3} does not exist`)
+            }
+    }}
+
+
     else if(req.params.test == 'update')
         res.send(req.params.test)
     else if(req.params.test == 'delete')

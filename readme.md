@@ -43,6 +43,7 @@ Later, we will link this with a React front-end
 ## Step 4 - Let's complicate the API
 
 - with Express, create a route such as, when the url `/hello/<ID>` is invoked, answers with: `{status:200, message:"Hello, <ID>"}`, where `<ID>` may be anything the user wanted to pass. The user may also not pass anything.
+
 - with Express, create a route such as, when the url `/search?s=<SEARCH>` is invoked, answers with `{status:200, message:"ok", data:<SEARCH>}` if `<SEARCH>` is provided, and `{status:500, error:true, message:"you have to provide a search"}` if it is not. Be sure to set the *http status* to `500` too.
 
 ## Step 5 - Set up the basis for CRUD
