@@ -125,7 +125,20 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
                 // res.err(true)
                 res.send(`the movie ${req.params.test3} does not exist`)
             }
-    }}
+    }}else if (req.params.test == 'add'){
+        if (!req.query.title || !req.query.year || req.query.year.length != 4 || isNaN(req.query.year)){
+            res.status(403).err
+            res.write(`you cannot create a movie without providing a title and a year`)
+            res.end()
+        }else if (!req.query.rating){
+            var result = {title: req.query.title, year: req.query.year, rating: 4}
+            movies.push(result)
+            res.send(listOfMovies(movies))
+        }else{
+            var result = {title: req.query.title, year: req.query.year, rating: req.query.rating}
+            movies.push(result)
+            res.send(listOfMovies(movies))}
+    }
 
 
     else if(req.params.test == 'update')
@@ -133,6 +146,7 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
     else if(req.params.test == 'delete')
         res.send(req.params.test)
 })
+
 // app.get((''), (req, res)=>{})
 app.listen(port,(err)=>{
     if(err){
