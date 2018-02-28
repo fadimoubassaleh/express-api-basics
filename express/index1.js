@@ -101,8 +101,11 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
     
     // 2
     else if(req.params.test == 'read'){
+        if(!req.params.test2){
+            res.send(listOfMovies(movies))
+        }
         // 2.1 SORT by
-        if(req.params.test2 == 'by-date'){
+        else if(req.params.test2 == 'by-date'){
             var newArray = byYear(movies)
             res.send(listOfMovies(newArray))
         }else if(req.params.test2 == 'by-rating'){
@@ -127,7 +130,7 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
             }
         }
     }
-    // 3
+    // 3 ADD new Movie
     else if (req.params.test == 'add'){
         if (!req.query.title || !req.query.year || req.query.year.length != 4 || isNaN(req.query.year)){
             res.status(403).err
@@ -143,7 +146,7 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
             res.send(listOfMovies(movies))
         }
     }
-    // 4
+    // 4 DELETE exist movie
     else if (req.params.test == 'delete'){
         if (!req.params.test2){
             res.send('Please enter the id of movie you want to delete')
@@ -157,7 +160,7 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
             res.send(`the movie ${req.params.test2} does not exist`)
         }
     }
-    // 5
+    // 5 UPDATE exist movie
     else if (req.params.test == 'update'){
         var result = parseInt(req.params.test2) - 1
         if (!req.params.test2){
