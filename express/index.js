@@ -150,7 +150,31 @@ app.get(('/movies/:test?/:test2?/:test3?'), (req, res)=>{
             res.err = true
             res.send(`the movie ${req.params.test2} does not exist`)
         }
-    }
+    }else if (req.params.test == 'update'){
+        var result = parseInt(req.params.test2) - 1
+        if (!req.params.test2){
+            res.send('Please enter the id of movie you want to update')
+        }else if(!req.query.title && !req.query.rating){
+            res.send(`please enter what you want to update like <br /><br /> {localhost:3000/movies/update/${req.params.test2}?title=Hello} or {localhost:3000/movies/update/${req.params.test2}?rating=4} <br /><br /> OR {localhost:3000/movies/update/${req.params.test2}?rating=4&&?title=Hello}`)
+        }else{
+            if(!!req.query.title && !!req.query.rating){
+                movies[result].title = req.query.title;
+                movies[result].rating = req.query.rating;
+                res.send(movies[result])
+            }
+            if(!!req.query.title){
+                console.log('hi')
+                movies[result].title = req.query.title;
+                res.send(movies[result])
+            }if(!!req.query.rating){
+                console.log('hi2')
+                movies[result].rating = req.query.rating;
+                res.send(movies[result])
+            }
+            // if()
+        }
+        }
+    
 
 
     else if(req.params.test == 'update')
